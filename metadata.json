@@ -1,0 +1,7 @@
+{
+  "name": "Prepster - your study companion",
+  "description": "Your ultimate exam prep ally. Transform notes into summaries and quizzes with expressive AI feedback and creative doodles.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
