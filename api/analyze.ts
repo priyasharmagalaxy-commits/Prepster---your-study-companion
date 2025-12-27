@@ -68,7 +68,7 @@ export default async function handler(request: Request) {
         }
 
         const response = await ai.models.generateContent({
-            model: "gemini-3-flash-preview", // Updated to correct preview model ID
+            model: process.env.GEMINI_MODEL || "gemini-3-flash-preview",
             contents: { parts },
             config: {
                 responseMimeType: "application/json",
