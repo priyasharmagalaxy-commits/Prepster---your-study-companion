@@ -9,7 +9,7 @@ export const analyzeNotes = async (
   image?: string
 ): Promise<AnalysisResult> => {
   const ai = new GoogleGenAI({ apiKey: API_KEY });
-  
+
   const responseSchema = {
     type: Type.OBJECT,
     properties: {
@@ -45,7 +45,7 @@ export const analyzeNotes = async (
   };
 
   const parts: any[] = [{ text: "Analyze these student notes and provide a structured learning experience including a summary, key highlights, 5 quiz questions, and quotes. Notes follow:\n" + content }];
-  
+
   if (image) {
     parts.push({
       inlineData: {

@@ -601,7 +601,6 @@ enum AppState {
 }
 
 export default function App() {
-  console.log('App loaded. Version: ' + new Date().toISOString());
   const [state, setState] = useState<AppState>(AppState.LANDING);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [quizHistory, setQuizHistory] = useState<QuizScore[]>([]);
