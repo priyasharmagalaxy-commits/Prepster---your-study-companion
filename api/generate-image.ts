@@ -22,7 +22,7 @@ export default async function handler(request: Request) {
 
         const ai = new GoogleGenAI({ apiKey: API_KEY });
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash',
+            model: 'gemini-3-flash-preview',
             contents: {
                 parts: [
                     { text: `Create a clean, artistic, high-quality educational illustration for: ${prompt}. Use soft academic colors and professional design.` }
