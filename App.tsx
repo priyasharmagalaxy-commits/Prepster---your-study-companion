@@ -1,14 +1,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  BookOpen, 
-  Upload, 
-  FileText, 
-  BrainCircuit, 
-  CheckCircle2, 
-  ChevronRight, 
-  Loader2, 
-  Quote, 
+import {
+  BookOpen,
+  Upload,
+  FileText,
+  BrainCircuit,
+  CheckCircle2,
+  ChevronRight,
+  Loader2,
+  Quote,
   Trophy,
   History,
   Camera,
@@ -28,14 +28,14 @@ import {
   AlertCircle,
   ThumbsUp
 } from 'lucide-react';
-import { 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
-  AreaChart, 
-  Area 
+import {
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  AreaChart,
+  Area
 } from 'recharts';
 import { analyzeNotes, generateTopicImage } from './services/geminiService';
 import { AnalysisResult, Question, QuizScore, UserAnswer } from './types';
@@ -72,7 +72,7 @@ const Landing = ({ onStart }: { onStart: () => void }) => (
     <p className="text-xl text-gray-600 max-w-2xl mb-12 leading-relaxed doodle-font font-bold">
       Your notebook's new best friend. We turn raw ideas into rocket fuel for your exams. ✨
     </p>
-    <button 
+    <button
       onClick={onStart}
       className="group flex items-center gap-3 bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-[2rem] font-black text-xl transition-all shadow-2xl hover:shadow-indigo-200 hover:-translate-y-1"
     >
@@ -82,10 +82,10 @@ const Landing = ({ onStart }: { onStart: () => void }) => (
   </div>
 );
 
-const FileUploadArea = ({ 
-  onAnalysisStart 
-}: { 
-  onAnalysisStart: (text: string, image?: string) => void 
+const FileUploadArea = ({
+  onAnalysisStart
+}: {
+  onAnalysisStart: (text: string, image?: string) => void
 }) => {
   const [text, setText] = useState("");
   const [image, setImage] = useState<string | null>(null);
@@ -169,7 +169,7 @@ const FileUploadArea = ({
               {image ? (
                 <div className="relative w-full h-full">
                   <img src={image} className="w-full h-full object-cover" alt="Uploaded preview" />
-                  <button 
+                  <button
                     onClick={() => setImage(null)}
                     className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-xl shadow-lg hover:bg-red-600 transition-colors"
                   >
@@ -192,7 +192,7 @@ const FileUploadArea = ({
                       <span className="text-xs font-black uppercase">Browse Files</span>
                       <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                     </label>
-                    <button 
+                    <button
                       onClick={startCamera}
                       className="p-6 bg-white rounded-3xl shadow-lg border-2 border-transparent hover:border-indigo-400 transition-all group-hover:-translate-y-2 delay-75"
                     >
@@ -212,9 +212,8 @@ const FileUploadArea = ({
           <button
             disabled={!text && !image}
             onClick={() => onAnalysisStart(text, image || undefined)}
-            className={`flex items-center gap-3 px-12 py-5 rounded-[2rem] font-black text-lg transition-all shadow-xl ${
-              (!text && !image) ? 'bg-gray-300 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-indigo-200 hover:-translate-y-1'
-            }`}
+            className={`flex items-center gap-3 px-12 py-5 rounded-[2rem] font-black text-lg transition-all shadow-xl ${(!text && !image) ? 'bg-gray-300 cursor-not-allowed opacity-50' : 'bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-indigo-200 hover:-translate-y-1'
+              }`}
           >
             Power Up Prepster
             <Sparkles className="w-6 h-6" />
@@ -238,7 +237,7 @@ const QuizSection = ({ questions, onComplete }: { questions: Question[], onCompl
     setIsAnswered(true);
     const isCorrect = option === questions[currentIndex].correctAnswer;
     if (isCorrect) setScore(s => s + 1);
-    
+
     setAnswers([...answers, {
       questionIndex: currentIndex,
       answer: option,
@@ -341,9 +340,8 @@ const QuizSection = ({ questions, onComplete }: { questions: Question[], onCompl
             </div>
             <button
               onClick={nextQuestion}
-              className={`mt-8 w-full py-5 rounded-2xl font-black text-xl transition-all shadow-lg flex items-center justify-center gap-2 ${
-                isCorrectChoice ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-              }`}
+              className={`mt-8 w-full py-5 rounded-2xl font-black text-xl transition-all shadow-lg flex items-center justify-center gap-2 ${isCorrectChoice ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                }`}
             >
               {currentIndex === questions.length - 1 ? 'Finish Adventure' : 'Onward!'}
               <ChevronRight />
@@ -355,15 +353,15 @@ const QuizSection = ({ questions, onComplete }: { questions: Question[], onCompl
   );
 };
 
-const Dashboard = ({ 
-  result, 
-  onTakeQuiz, 
-  onBack, 
+const Dashboard = ({
+  result,
+  onTakeQuiz,
+  onBack,
   history,
-  topicImage 
-}: { 
-  result: AnalysisResult, 
-  onTakeQuiz: () => void, 
+  topicImage
+}: {
+  result: AnalysisResult,
+  onTakeQuiz: () => void,
   onBack: () => void,
   history: QuizScore[],
   topicImage: string | null
@@ -372,10 +370,10 @@ const Dashboard = ({
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in duration-700 pb-20">
       {/* Header Banner */}
       <div className="relative h-72 md:h-96 rounded-[3rem] overflow-hidden shadow-2xl group border-4 border-white">
-        <img 
-          src={topicImage || `https://picsum.photos/seed/${result.topicTitle}/1200/500`} 
-          className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" 
-          alt="Topic visuals" 
+        <img
+          src={topicImage || `https://picsum.photos/seed/${result.topicTitle}/1200/500`}
+          className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+          alt="Topic visuals"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent flex flex-col justify-end p-10">
           <div className="flex items-center gap-3 text-pink-400 mb-3 font-black uppercase tracking-widest text-sm">
@@ -424,7 +422,7 @@ const Dashboard = ({
             <div className="relative z-10 text-center md:text-left">
               <h3 className="text-4xl font-black mb-5 leading-tight">Ready to launch?</h3>
               <p className="text-indigo-100 text-xl mb-8 font-medium">Test your knowledge with 5 hand-picked questions by Prepster.</p>
-              <button 
+              <button
                 onClick={onTakeQuiz}
                 className="bg-white text-indigo-700 px-10 py-5 rounded-2xl font-black text-xl hover:bg-pink-50 transition-all flex items-center gap-3 mx-auto md:mx-0 shadow-2xl active:scale-95"
               >
@@ -475,24 +473,24 @@ const Dashboard = ({
                   <AreaChart data={history}>
                     <defs>
                       <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.2}/>
-                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                     <XAxis dataKey="date" hide />
                     <YAxis domain={[0, 100]} hide />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.1)' }}
                       labelStyle={{ fontWeight: 'black', color: '#4f46e5' }}
                     />
-                    <Area 
-                      type="step" 
-                      dataKey="score" 
-                      stroke="#4f46e5" 
+                    <Area
+                      type="step"
+                      dataKey="score"
+                      stroke="#4f46e5"
                       strokeWidth={4}
-                      fillOpacity={1} 
-                      fill="url(#colorScore)" 
+                      fillOpacity={1}
+                      fill="url(#colorScore)"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -503,7 +501,7 @@ const Dashboard = ({
             </section>
           )}
 
-          <button 
+          <button
             onClick={onBack}
             className="w-full flex items-center justify-center gap-3 py-6 border-4 border-dashed border-indigo-100 rounded-[2.5rem] text-indigo-400 font-black text-lg hover:bg-indigo-50 hover:border-indigo-200 transition-all group"
           >
@@ -516,26 +514,26 @@ const Dashboard = ({
   );
 };
 
-const QuizResults = ({ 
-  score, 
-  total, 
-  onRetry, 
-  onDone 
-}: { 
-  score: number, 
-  total: number, 
-  onRetry: () => void, 
-  onDone: () => void 
+const QuizResults = ({
+  score,
+  total,
+  onRetry,
+  onDone
+}: {
+  score: number,
+  total: number,
+  onRetry: () => void,
+  onDone: () => void
 }) => {
   const percentage = Math.round((score / total) * 100);
-  
+
   return (
     <div className="max-w-xl mx-auto text-center py-12 space-y-10 animate-in zoom-in-95 duration-500">
       <div className="bg-white p-12 rounded-[4rem] shadow-2xl border border-gray-100 relative">
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-gradient-to-br from-yellow-400 to-orange-500 p-8 rounded-full shadow-2xl animate-bounce">
           <Trophy className="w-16 h-16 text-white" />
         </div>
-        
+
         <div className="mt-12 space-y-4">
           <h2 className="text-4xl font-black text-gray-900">Mission Accomplished!</h2>
           <p className="text-gray-500 font-bold doodle-font text-lg">Prepster is proud of you!</p>
@@ -544,16 +542,16 @@ const QuizResults = ({
         <div className="my-12 relative inline-block">
           <svg className="w-64 h-64 -rotate-90">
             <circle cx="128" cy="128" r="110" stroke="currentColor" strokeWidth="16" fill="transparent" className="text-gray-100" />
-            <circle 
-              cx="128" 
-              cy="128" 
-              r="110" 
-              stroke="currentColor" 
-              strokeWidth="16" 
-              fill="transparent" 
+            <circle
+              cx="128"
+              cy="128"
+              r="110"
+              stroke="currentColor"
+              strokeWidth="16"
+              fill="transparent"
               strokeDasharray={691}
               strokeDashoffset={691 - (691 * percentage) / 100}
-              className="text-indigo-600 transition-all duration-[1.5s] ease-out stroke-cap-round" 
+              className="text-indigo-600 transition-all duration-[1.5s] ease-out stroke-cap-round"
               strokeLinecap="round"
             />
           </svg>
@@ -564,14 +562,14 @@ const QuizResults = ({
         </div>
 
         <div className="grid sm:grid-cols-2 gap-6">
-          <button 
+          <button
             onClick={onRetry}
             className="flex items-center justify-center gap-3 py-5 bg-gray-100 text-gray-700 rounded-3xl font-black text-lg hover:bg-gray-200 transition-all active:scale-95"
           >
             <RefreshCw className="w-6 h-6" />
             Re-run Mission
           </button>
-          <button 
+          <button
             onClick={onDone}
             className="flex items-center justify-center gap-3 py-5 bg-indigo-600 text-white rounded-3xl font-black text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 active:scale-95"
           >
@@ -580,13 +578,13 @@ const QuizResults = ({
           </button>
         </div>
       </div>
-      
+
       <div className={`p-10 rounded-[3rem] border-2 flex items-center justify-center gap-4 ${percentage >= 80 ? 'bg-green-50 border-green-200 text-green-800' : 'bg-pink-50 border-pink-200 text-pink-800'}`}>
         <Sparkles className="w-8 h-8" />
         <p className="text-2xl font-black doodle-font">
-          {percentage >= 80 ? "Pure Brilliance!" : 
-           percentage >= 50 ? "Solid Progress!" : 
-           "Keep Pushing!"}
+          {percentage >= 80 ? "Pure Brilliance!" :
+            percentage >= 50 ? "Solid Progress!" :
+              "Keep Pushing!"}
         </p>
       </div>
     </div>
@@ -603,6 +601,7 @@ enum AppState {
 }
 
 export default function App() {
+  console.log('App loaded. Version: ' + new Date().toISOString());
   const [state, setState] = useState<AppState>(AppState.LANDING);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [quizHistory, setQuizHistory] = useState<QuizScore[]>([]);
@@ -613,15 +612,15 @@ export default function App() {
   const handleStartAnalysis = async (text: string, image?: string) => {
     setState(AppState.ANALYZING);
     setLoadingStep("Reading your mind (and notes)...");
-    
+
     try {
       const result = await analyzeNotes(text, image);
       setAnalysisResult(result);
-      
+
       setLoadingStep("Drawing some cool diagrams...");
       const img = await generateTopicImage(result.imagePrompt);
       setTopicImage(img);
-      
+
       setState(AppState.DASHBOARD);
     } catch (error) {
       console.error(error);
@@ -633,7 +632,7 @@ export default function App() {
   const handleQuizComplete = (score: number) => {
     const total = analysisResult?.questions.length || 0;
     setLastQuizScore({ score, total });
-    
+
     const newEntry: QuizScore = {
       date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       score: Math.round((score / total) * 100),
@@ -647,7 +646,7 @@ export default function App() {
     <div className="min-h-screen bg-[#fafafa] text-gray-900 pb-20 custom-scrollbar overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
       <nav className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div 
+          <div
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => setState(AppState.LANDING)}
           >
@@ -658,7 +657,7 @@ export default function App() {
           </div>
           {state !== AppState.LANDING && (
             <div className="flex items-center gap-6">
-              <button 
+              <button
                 onClick={() => setState(AppState.UPLOADING)}
                 className="hidden md:flex items-center gap-2 px-6 py-3 text-sm font-black text-gray-600 hover:bg-gray-50 rounded-2xl transition-all hover:scale-105"
               >
@@ -675,7 +674,7 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-6 pt-12">
         {state === AppState.LANDING && <Landing onStart={() => setState(AppState.UPLOADING)} />}
-        
+
         {state === AppState.UPLOADING && (
           <FileUploadArea onAnalysisStart={handleStartAnalysis} />
         )}
@@ -695,9 +694,9 @@ export default function App() {
         )}
 
         {state === AppState.DASHBOARD && analysisResult && (
-          <Dashboard 
-            result={analysisResult} 
-            onTakeQuiz={() => setState(AppState.QUIZ)} 
+          <Dashboard
+            result={analysisResult}
+            onTakeQuiz={() => setState(AppState.QUIZ)}
             onBack={() => setState(AppState.UPLOADING)}
             history={quizHistory}
             topicImage={topicImage}
@@ -705,16 +704,16 @@ export default function App() {
         )}
 
         {state === AppState.QUIZ && analysisResult && (
-          <QuizSection 
-            questions={analysisResult.questions} 
-            onComplete={handleQuizComplete} 
+          <QuizSection
+            questions={analysisResult.questions}
+            onComplete={handleQuizComplete}
           />
         )}
 
         {state === AppState.QUIZ_RESULTS && (
-          <QuizResults 
-            score={lastQuizScore.score} 
-            total={lastQuizScore.total} 
+          <QuizResults
+            score={lastQuizScore.score}
+            total={lastQuizScore.total}
             onRetry={() => setState(AppState.QUIZ)}
             onDone={() => setState(AppState.DASHBOARD)}
           />
